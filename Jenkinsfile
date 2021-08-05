@@ -24,7 +24,7 @@ pipeline {
   stage('Docker Build and Tag') {
            steps {
                 
-                sh 'docker build -t javaapp:latest .' 
+                sh ' docker build -t javaapp:v1 .' 
                                	                 
           }
         }
