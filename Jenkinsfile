@@ -3,7 +3,7 @@ pipeline {
 	
 	  tools
     {
-       maven "maven 3.6.3"
+       maven "Maven.3.6.3"
     }
  stages {
       stage('checkout') {
@@ -24,8 +24,9 @@ pipeline {
   stage('Docker Build and Tag') {
            steps {
                 
-                sh ' docker build -t sivakumar/javaapp:latest .' 
-                               	                 
+                sh 'docker build -t samplewebapp:latest .' 
+                sh 'docker tag samplewebapp hello/javaapp:latest'
+               	                 
           }
         }
      
@@ -34,7 +35,7 @@ pipeline {
              
             steps 
 			{
-                sh "docker run --name javaapp -d -p 8008:8080 sivakumar/javaapp"
+                sh "docker run --name javaapp -d -p 8008:8080 hello/javaapp"
 				sh 'sleep 10'
 				
 				
@@ -67,7 +68,7 @@ pipeline {
         
 		withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER'), string(credentialsId: 'PASSWD', variable: 'DOCKER_PASSWORD')]) {
             sh 'docker login -u $DOCKER_USER -p $DOCKER_PASSWORD'
-              sh  'docker push sivakumar/javaapp:latest'
+              sh  'docker push hello/javaapp:latest'
           }
 		  
 
