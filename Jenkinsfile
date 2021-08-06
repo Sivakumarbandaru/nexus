@@ -25,7 +25,7 @@ pipeline {
            steps {
                 
                 sh 'docker build -t samplewebapp:latest .' 
-                sh 'docker tag samplewebapp hello/javaapp:latest'
+                sh 'docker tag samplewebapp sivaband6/sivakumar:latest'
                	                 
           }
         }
@@ -35,7 +35,7 @@ pipeline {
              
             steps 
 			{
-                sh "docker run --name javaapp -d -p 8008:8080 hello/javaapp"
+                sh "docker run --name javaapp -d -p 8008:8080 sivaband6/sivakumar"
 				sh 'sleep 10'
 				
 				
@@ -68,7 +68,7 @@ pipeline {
         
 		withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER'), string(credentialsId: 'PASSWD', variable: 'DOCKER_PASSWORD')]) {
             sh 'docker login -u $DOCKER_USER -p $DOCKER_PASSWORD'
-              sh  'docker push hello/javaapp:latest'
+              sh  'docker push sivaband6/sivakumar:latest'
           }
 		  
 
